@@ -1,0 +1,16 @@
+{
+    "dev": {
+      "driver": "pg",
+      "host": "rogue.db.elephantsql.com",
+      "database": "yirevvgc",
+      "user": "yirevvgc",
+      "password": "buTTx61-EbZLiQf_yMSG8NbJoWK4F-80"
+    },
+    "test": {
+      "driver": "pg",
+      "host": "127.0.0.1",
+      "database": "store_front_test",
+      "user": "test_user",
+      "password": "password123"
+    }
+  }
