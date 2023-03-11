@@ -1,15 +1,41 @@
 import Client from "../database";
+import bcrypt from "bcrypt";
+import dotenv from 'dotenv'
+dotenv.config()
 
+const {
+    BYCRYPT_PASSWORD: pepper,
+    SALT_ROUNDS: saltRounds
+} = process.env 
 
 export type User = {
     id?: string;
     firstName: string;
     lastName: string;
+    username: string;
     password: string;
 }
 
 
 export class GetUsers{
+
+    async authenticate(username: string, password: string): Promise<User | null>{
+
+        const conn = await Client.connect();
+        const sql = "SELECT password FROM users  WHERE username =($1)";
+        const result = await conn.query(sql, [username]);
+
+        if(result.rows.length){
+            const user = result.rows[0];
+            console.log(user);
+            if (bcrypt.compareSync(password+pepper, user.password)){
+                return user;
+            }
+        }
+        return null;
+    }
+
+
    async index(): Promise<User[]> {
     try{
 
@@ -45,8 +71,10 @@ export class GetUsers{
     try{
 
         const conn = await Client.connect();
-        const sql = `INSERT INTO users (firstName, lastName, password) VALUES ($1, $2, $3) RETURNING *`;
-        const result = await conn.query(sql, [...Object.values(user)]);
+        const sql = `INSERT INTO users (firstName, lastName, username, password) VALUES ($1, $2, $3, $4) RETURNING *`;
+        const hash = bcrypt.hashSync(user.password + pepper, parseInt(saltRounds || '') );
+        
+        const result = await conn.query(sql, [user.firstName, user.lastName, user.username, hash]);
         conn.release();
 
         return result.rows[0];
