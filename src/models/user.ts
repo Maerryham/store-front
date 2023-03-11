@@ -38,7 +38,6 @@ export class GetUsers{
 
    async index(): Promise<User[]> {
     try{
-
         const conn = await Client.connect();
         const sql = "SELECT * FROM users"
         const result = await conn.query(sql);
