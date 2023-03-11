@@ -1,10 +1,7 @@
-/* Replace with your SQL commands */
-
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY  KEY,
     name VARCHAR(255) NOT NULL DEFAULT '',
     price NUMERIC
-    CONSTRAINT products_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -14,12 +11,12 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL DEFAULT ''
 );
 
+CREATE TYPE enum_type AS ENUM('pending','success','failed');
+
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY  KEY,
-    user_id VARCHAR(255) NOT NULL DEFAULT '',
     product_id VARCHAR(255)[],
     quantity integer[],
-    status enum('pending','success','failed'),
-    FOREIGN KEY (product_id) REFERENCES products (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    status enum_type,
+    users_id BIGINT REFERENCES users (id)
 );
