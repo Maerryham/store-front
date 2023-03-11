@@ -1,5 +1,8 @@
 import express, { Request, Response } from 'express'
 import { GetProducts, Product } from '../models/product';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'
+dotenv.config()
 
 const store = new GetProducts();
 
@@ -14,13 +17,22 @@ const show = async (req: Request, res: Response) => {
   res.json(product)
 }
   
-const create = async (req: Request, res: Response) => {
-  try {
-      const product: Product = {
-        name: req.body.title,
-        price: req.body.content,
-      }
+const create = async (_req: Request, res: Response) => {
+  const product: Product = {
+    name: _req.body.title,
+    price: _req.body.content,
+  }
 
+  try {
+    jwt.verify(_req.body.token, process.env.TOKEN_SECRET || '');
+    // res.json(newProduct)
+  } catch(err) {
+      res.status(401)
+      res.json(`Invalid token: ${err}`)
+      return
+  }
+
+  try {
       const newProduct = await store.create(product)
       res.json(newProduct)
   } catch(err) {
@@ -34,7 +46,7 @@ const destroy = async (req: Request, res: Response) => {
   res.json(deleted)
 }
   
-const productRoutes = (app: express.Application) => {
+const productRoutes = (app: express.Router) => {
   app.get('/products', index)
   app.get('/products/:id', show)
   app.post('/products', create)

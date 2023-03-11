@@ -12,7 +12,6 @@ export type User = {
     id?: string;
     firstName: string;
     lastName: string;
-    username: string;
     password: string;
 }
 
@@ -70,10 +69,10 @@ export class GetUsers{
     try{
 
         const conn = await Client.connect();
-        const sql = `INSERT INTO users (firstName, lastName, username, password) VALUES ($1, $2, $3, $4) RETURNING *`;
+        const sql = `INSERT INTO users (firstName, lastName, username, password) VALUES ($1, $2, $3) RETURNING *`;
         const hash = bcrypt.hashSync(user.password + pepper, parseInt(saltRounds || '') );
         
-        const result = await conn.query(sql, [user.firstName, user.lastName, user.username, hash]);
+        const result = await conn.query(sql, [user.firstName, user.lastName, hash]);
         conn.release();
 
         return result.rows[0];
