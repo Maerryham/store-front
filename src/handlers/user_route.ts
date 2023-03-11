@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { GetUsers, User } from '../models/user';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
+import { verifyAuthToken } from '../middlewares/verifyAuthToken'
 dotenv.config()
 
 const store = new GetUsers();
@@ -16,18 +17,7 @@ const show = async (req: Request, res: Response) => {
   res.json(user)
 }
 
-const verifyAuthToken = (req: Request, res: Response, next) => {
-  try {
-      const authorizationHeader = req.headers.authorization
-      if (!authorizationHeader) {throw new Error("Invalid authorization header")}
-      const token = authorizationHeader.split(' ')[1] 
-      const decoded = jwt.verify(token, process.env.TOKEN_SECRET || '')
 
-      next()
-  } catch (error) {
-      res.status(401)
-  }
-}
   
 const create = async (_req: Request, res: Response) => {
   const user: User = {
@@ -52,10 +42,9 @@ const destroy = async (req: Request, res: Response) => {
 }
   
 const userRoutes = (app: express.Application) => {
-  app.get('/users', index)
-  app.get('/users/:id', show)
-  app.post('/users', verifyAuthToken, create)
-  app.delete('/users/:id', verifyAuthToken, destroy)
+  app.get('/users', verifyAuthToken, index)
+  app.get('/users/:id', verifyAuthToken, show)
+  app.post('/users', create)
 }
   
 export default userRoutes;
