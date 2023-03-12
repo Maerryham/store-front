@@ -25,11 +25,11 @@ const create = async (_req: Request, res: Response) => {
   }
 
   try {
-      const newProduct = await store.create(order)
-      res.json(newProduct)
+      const newOrder = await store.create(order)
+      res.json(newOrder)
   } catch(err) {
       res.status(400)
-      res.json({ message: `${(err as Error).message} Product ${JSON.stringify(order)}`})
+      res.json({ message: `${(err as Error).message} Order ${JSON.stringify(order)}`})
   }
 }
 
