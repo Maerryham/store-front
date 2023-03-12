@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { GetOrders, Order } from '../models/order';
+import { GetOrders, Order, Status } from '../models/order';
 import { verifyAuthToken } from '../middlewares/verifyAuthToken'
 const orderRoutes = express.Router();
 
@@ -10,14 +10,17 @@ const index = async (_req: Request, res: Response) => {
   res.json(orders)
 }
 
-const activeOrderByUser = async (req: Request, res: Response) => {
-    const order = await store.activeOrderByUser(req.params.id)
-    res.json(order)
-}
+const OrderByUser = async (req: Request, res: Response) => {
+    const queryStatus = req.query.status;
 
-const completeOrderByUser = async (req: Request, res: Response) => {
-    const order = await store.completeOrderByUser(req.params.id)
-    res.json(order)
+    const status = queryStatus ? (queryStatus as Status) : null
+    try{
+      const order = await store.orderByUser(req.params.id, status)
+      res.json(order)
+    }catch(err){
+      res.status(400)
+      res.json({ message: `${(err as Error).message}`})
+    }  
 }
 
   
@@ -40,8 +43,7 @@ const create = async (_req: Request, res: Response) => {
 
 
 orderRoutes.get('/orders', index)
-orderRoutes.get('/orders/:id', verifyAuthToken, activeOrderByUser)
-orderRoutes.get('/orders/:id', verifyAuthToken, completeOrderByUser)
+orderRoutes.get('/orders/users/:id', verifyAuthToken, OrderByUser)
 orderRoutes.post('/orders', verifyAuthToken, create)
 
 export default orderRoutes;
