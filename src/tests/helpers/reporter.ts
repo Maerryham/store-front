@@ -1,5 +1,4 @@
 import { DisplayProcessor, SpecReporter, StacktraceOption } from 'jasmine-spec-reporter';
-import CustomReporter = jasmine.CustomReporter;
 import SuiteInfo = jasmine.SuiteInfo;
 
 class CustomProcessor extends DisplayProcessor {
@@ -10,10 +9,10 @@ class CustomProcessor extends DisplayProcessor {
 
 jasmine.getEnv().clearReporters();
 jasmine.getEnv().addReporter(
-  (new SpecReporter({
+  new SpecReporter({
     spec: {
       displayStacktrace: StacktraceOption.NONE,
     },
     customProcessors: [CustomProcessor],
-  }) as unknown) as CustomReporter
+  })
 );
