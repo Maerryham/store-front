@@ -1,10 +1,10 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import productRoutes from './handlers/product_route';
 import userRoutes from './handlers/user_route';
 import orderRoutes from './handlers/order_route';
-import orderProductRoutes from './handlers/order_product';
+import orderProductRoutes from './handlers/order_product_route';
 
 
 const app: express.Application = express()

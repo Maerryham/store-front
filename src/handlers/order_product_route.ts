@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { GetOrderProduct, OrderProduct } from '../services/order_products';
+import { GetOrderProduct, OrderProduct, Status } from '../services/order_product';
 import { verifyAuthToken } from '../middlewares/verifyAuthToken'
 const orderProductRoutes = express.Router();
 
@@ -23,7 +23,23 @@ const addProductToUserOrder = async (_req: Request, res: Response) => {
     }
   }
 
+  const productsInUserOrder = async (_req: Request, res: Response) => {
+    const userId = _req.params.user_id
+    const queryStatus = _req.query.status;
+
+    const status = queryStatus ? (queryStatus as Status) : null
+    
+    try {
+        const newOrder = await store.productsInUserOrder(userId, status)
+        res.json(newOrder)
+    } catch(err) {
+        res.status(400)
+        res.json({ message: `${(err as Error).message} }`})
+    }
+  }
+
 
   orderProductRoutes.post('/orders/:order_id/products/:product_id', addProductToUserOrder)
+  orderProductRoutes.get('/users/:user_id/products', productsInUserOrder)
 
 export default orderProductRoutes;

@@ -18,18 +18,27 @@ export type OrderProductMini = {
     id?: string;
 }
 
+export enum Status {
+    active = 'active',
+    complete = 'complete',
+  }
+
 
 export class GetOrderProduct{
 
-    async orderByUser(user_id: string): Promise<OrderProduct[]> {
-
+    async productsInUserOrder(user_id: string, status?: Status | null): Promise<OrderProduct[]> {
+        const additionalQuery = status ? `AND o.status = '${status}'` : '';
         try {
           const conn = await Client.connect()
           const sql = `SELECT 
-          p.name, p.price, op.order_id 
+          p.name, p.price, op.order_id, op.quantity, op.user_id, o.status
           FROM products p 
           INNER JOIN order_product op 
-          ON p.id=op.product_id WHERE user_id = ${user_id};`
+          ON p.id=op.product_id 
+          JOIN orders o
+          ON op.order_id=o.id 
+          WHERE op.user_id = ${user_id} 
+          ${additionalQuery};`
     
           const result = await conn.query(sql)
           conn.release()
@@ -54,8 +63,6 @@ export class GetOrderProduct{
           throw new Error(`unable to add product to order: ${err}`)
         } 
       }
-
-    
 
     }
 
