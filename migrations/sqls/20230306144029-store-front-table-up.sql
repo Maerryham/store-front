@@ -11,12 +11,12 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL DEFAULT ''
 );
 
-CREATE TYPE enum_type AS ENUM('pending','success','failed');
+CREATE TYPE enum_type AS ENUM('active','complete');
 
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY  KEY,
     quantity integer,
     status enum_type,
-    users_id BIGINT REFERENCES users (id),
+    user_id BIGINT REFERENCES users (id),
     product_id BIGINT REFERENCES products (id)
 );
