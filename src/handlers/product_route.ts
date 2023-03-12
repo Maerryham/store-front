@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { GetProducts, Product } from '../models/product';
-import jwt from 'jsonwebtoken';
+import { verifyAuthToken } from '../middlewares/verifyAuthToken'
 import dotenv from 'dotenv'
 const productRoutes = express.Router();
 dotenv.config()
@@ -24,15 +24,6 @@ const create = async (_req: Request, res: Response) => {
   }
 
   try {
-    jwt.verify(_req.body.token, process.env.TOKEN_SECRET || '');
-    // res.json(newProduct)
-  } catch(err) {
-      res.status(401)
-      res.json(`Invalid token: ${err}`)
-      return
-  }
-
-  try {
       const newProduct = await store.create(product)
       res.json(newProduct)
   } catch(err) {
@@ -49,7 +40,7 @@ const destroy = async (req: Request, res: Response) => {
 
   productRoutes.get('/products', index)
   productRoutes.get('/products/:id', show)
-  productRoutes.post('/products', create)
+  productRoutes.post('/products', verifyAuthToken, create)
   productRoutes.delete('/products/:id', destroy)
 
   
