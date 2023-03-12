@@ -1,14 +1,14 @@
 import supertest from "supertest";
-import orderRoutes from "../handlers/order_route";
+import userRoutes from "../../handlers/user_route";
 
 
-const request = supertest(orderRoutes);
+const request = supertest(userRoutes);
 
-describe("Test Get All Orders endpoint with responses", () => {
-    it("It should get the Get All Orders endpoint", async (
+describe("Test Get All Users endpoint with responses", () => {
+    it("It should get the Get All Users endpoint", async (
     ) => {
         request
-           .get("/api/orders")
+           .get("/api/users")
            .then(response => {
             expect(response.status).toBe(200);
             })
