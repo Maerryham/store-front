@@ -15,8 +15,8 @@ CREATE TYPE enum_type AS ENUM('pending','success','failed');
 
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY  KEY,
-    product_id VARCHAR(255)[],
-    quantity integer[],
+    quantity integer,
     status enum_type,
-    users_id BIGINT REFERENCES users (id)
+    users_id BIGINT REFERENCES users (id),
+    product_id BIGINT REFERENCES products (id)
 );

@@ -2,14 +2,14 @@ import express, { Request, Response } from 'express'
 import { GetProducts, Product } from '../models/product';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
+const productRoutes = express.Router();
 dotenv.config()
 
 const store = new GetProducts();
 
 const index = async (_req: Request, res: Response) => {
   const products = await store.index()
-  // res.json(products)
-  res.send('Hello Products!');
+  res.json(products)
 }
   
 const show = async (req: Request, res: Response) => {
@@ -46,11 +46,11 @@ const destroy = async (req: Request, res: Response) => {
   res.json(deleted)
 }
   
-const productRoutes = (app: express.Router) => {
-  app.get('/products', index)
-  app.get('/products/:id', show)
-  app.post('/products', create)
-  app.delete('/products/:id', destroy)
-}
+
+  productRoutes.get('/products', index)
+  productRoutes.get('/products/:id', show)
+  productRoutes.post('/products', create)
+  productRoutes.delete('/products/:id', destroy)
+
   
 export default productRoutes;

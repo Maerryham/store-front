@@ -3,6 +3,7 @@ import { GetUsers, User } from '../models/user';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
 import { verifyAuthToken } from '../middlewares/verifyAuthToken'
+const userRoutes = express.Router();
 dotenv.config()
 
 const store = new GetUsers();
@@ -29,10 +30,10 @@ const create = async (_req: Request, res: Response) => {
   try {  
       const newUser = await store.create(user)
       const token = jwt.sign({user: user}, process.env.TOKEN_SECRET || '')
-      res.json(token)
-  } catch(err) {
+      res.json({token})
+  } catch(err ) {
       res.status(400)
-      res.json(err)
+      res.json(`${err} Message ${(err as Error).message} User ${user}`)
   }
 }
 
@@ -41,10 +42,9 @@ const destroy = async (req: Request, res: Response) => {
   res.json(deleted)
 }
   
-const userRoutes = (app: express.Application) => {
-  app.get('/users', verifyAuthToken, index)
-  app.get('/users/:id', verifyAuthToken, show)
-  app.post('/users', create)
-}
+  userRoutes.get('/users', verifyAuthToken, index)
+  userRoutes.get('/users/:id', verifyAuthToken, show)
+  userRoutes.post('/users', create)
+
   
 export default userRoutes;

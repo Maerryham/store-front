@@ -3,5 +3,6 @@ import productRoutes from './product_route';
 const routes = express.Router();
 
 
-routes.use('/images', productRoutes);
-export default routes;
+// routes.use('/pro', productRoutes);
+
+// export default routes;
