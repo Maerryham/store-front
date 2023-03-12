@@ -40,3 +40,12 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+#### How to connect the database
+POSTGRES_HOST=rogue.db.elephantsql.com
+POSTGRES_DB=yirevvgc
+POSTGRES_USER=yirevvgc
+POSTGRES_PASSWORD=buTTx61-EbZLiQf_yMSG8NbJoWK4F-80
+BYCRYPT_PASSWORD=password
+SALT_ROUNDS=10
+ENV=dev
+TOKEN_SECRET=mytokenSecret
