@@ -32,16 +32,9 @@ const create = async (_req: Request, res: Response) => {
   }
 }
 
-const destroy = async (req: Request, res: Response) => {
-  const deleted = await store.delete(req.body.id)
-  res.json(deleted)
-}
-  
-
   productRoutes.get('/products', index)
   productRoutes.get('/products/:id', show)
   productRoutes.post('/products', verifyAuthToken, create)
-  productRoutes.delete('/products/:id', destroy)
 
   
 export default productRoutes;

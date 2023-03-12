@@ -4,7 +4,7 @@ import productRoutes from "../../handlers/product_route";
 
 const request = supertest(productRoutes);
 
-describe("Test Get All Products endpoint with responses", () => {
+describe("Test Get Products endpoint with responses", () => {
     it("It should get the Get All Products endpoint", async (
     ) => {
         request
@@ -16,11 +16,7 @@ describe("Test Get All Products endpoint with responses", () => {
                 console.log(error);
             });
     });
-})
 
-
-
-describe("Test Get Product by ID endpoint with responses", () => {
     it("It should get the GetProduct by  ID endpoint", async (
     ) => {
         request

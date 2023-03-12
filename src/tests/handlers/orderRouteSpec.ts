@@ -4,7 +4,7 @@ import orderRoutes from "../../handlers/order_route";
 
 const request = supertest(orderRoutes);
 
-describe("Test Get All Orders endpoint with responses", () => {
+describe("Test All Orders endpoint with responses", () => {
     it("It should get the Get All Orders endpoint", async (
     ) => {
         request
@@ -16,9 +16,7 @@ describe("Test Get All Orders endpoint with responses", () => {
                 console.log(error);
             });
     });
-})
 
-describe("Test Get Orders by User ID endpoint with responses", () => {
     it("It should get the GetOrders by User ID endpoint", async (
     ) => {
         request
@@ -30,4 +28,16 @@ describe("Test Get Orders by User ID endpoint with responses", () => {
                 console.log(error);
             });
     });
+
+    it("It should get the GetOrders by User ID endpoint", async (
+        ) => {
+            request
+               .post("/api/orders")
+               .then(response => {
+                expect(response.status).toBe(200);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        });
 })
