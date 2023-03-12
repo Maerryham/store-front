@@ -3,8 +3,6 @@ import Client from "../database";
 
 export type Order = {
     id?: string;
-    product_id: string;
-    quantity: string;
     user_id: string;
     status: string;
 }
@@ -51,7 +49,7 @@ export class GetOrders{
         try{
     
             const conn = await Client.connect();
-            const sql = `INSERT INTO orders (product_id, quantity, user_id, status) VALUES ($1, $2, $3, $4) RETURNING *`;
+            const sql = `INSERT INTO orders (user_id, status) VALUES ($1, $2) RETURNING *`;
             const result = await conn.query(sql, [...Object.values(product)]);
             conn.release();
     

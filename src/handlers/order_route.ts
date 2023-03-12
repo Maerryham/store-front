@@ -26,8 +26,6 @@ const OrderByUser = async (req: Request, res: Response) => {
   
 const create = async (_req: Request, res: Response) => {
   const order: Order = {
-    product_id: _req.body.product_id,
-    quantity: _req.body.quantity,
     user_id: _req.body.user_id,
     status: _req.body.status,
   }

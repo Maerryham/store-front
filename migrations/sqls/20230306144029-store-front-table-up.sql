@@ -15,8 +15,14 @@ CREATE TYPE enum_type AS ENUM('active','complete');
 
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY  KEY,
+    user_id BIGINT REFERENCES users (id),
+    status enum_type
+);
+
+CREATE TABLE IF NOT EXISTS order_product (
+    id SERIAL PRIMARY  KEY,
     quantity integer,
-    status enum_type,
+    order_id BIGINT REFERENCES orders (id),
     user_id BIGINT REFERENCES users (id),
     product_id BIGINT REFERENCES products (id)
 );

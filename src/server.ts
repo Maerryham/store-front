@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import productRoutes from './handlers/product_route';
 import userRoutes from './handlers/user_route';
 import orderRoutes from './handlers/order_route';
+import orderProductRoutes from './handlers/order_product';
+
 
 const app: express.Application = express()
 const address: string = "0.0.0.0:3000"
@@ -21,6 +23,7 @@ app.use(morgan('tiny'));
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);
 app.use('/api', orderRoutes);
+app.use('/api', orderProductRoutes);
 
 
 app.get('/', (req: express.Request, res: express.Response) => {
