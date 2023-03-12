@@ -19,8 +19,8 @@ const show = async (req: Request, res: Response) => {
   
 const create = async (_req: Request, res: Response) => {
   const product: Product = {
-    name: _req.body.title,
-    price: _req.body.content,
+    name: _req.body.name,
+    price: _req.body.price,
   }
 
   try {
@@ -28,7 +28,7 @@ const create = async (_req: Request, res: Response) => {
       res.json(newProduct)
   } catch(err) {
       res.status(400)
-      res.json(err)
+      res.json({ message: `${(err as Error).message} Product ${JSON.stringify(product)}`})
   }
 }
 

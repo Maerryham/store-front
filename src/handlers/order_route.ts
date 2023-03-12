@@ -6,18 +6,18 @@ const orderRoutes = express.Router();
 const store = new GetOrders();
 
 const index = async (_req: Request, res: Response) => {
-  const products = await store.index()
-  res.json(products)
+  const orders = await store.index()
+  res.json(orders)
 }
 
 const orderByUser = async (req: Request, res: Response) => {
-    const product = await store.activeOrderByUser(req.params.id)
-    res.json(product)
+    const order = await store.activeOrderByUser(req.params.id)
+    res.json(order)
 }
 
   
 const create = async (_req: Request, res: Response) => {
-  const product: Order = {
+  const order: Order = {
     product_id: _req.body.product_id,
     quantity: _req.body.quantity,
     user_id: _req.body.user_id,
@@ -25,11 +25,11 @@ const create = async (_req: Request, res: Response) => {
   }
 
   try {
-      const newProduct = await store.create(product)
+      const newProduct = await store.create(order)
       res.json(newProduct)
   } catch(err) {
       res.status(400)
-      res.json(`Error ${(err as Error).message}`)
+      res.json({ message: `${(err as Error).message} Product ${JSON.stringify(order)}`})
   }
 }
 

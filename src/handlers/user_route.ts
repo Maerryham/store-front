@@ -33,7 +33,7 @@ const create = async (_req: Request, res: Response) => {
       res.json({token})
   } catch(err ) {
       res.status(400)
-      res.json(`${err} Message ${(err as Error).message} User ${user}`)
+      res.json({ message: `${(err as Error).message} User ${JSON.stringify(user)}`})
   }
 }
 
