@@ -40,6 +40,20 @@ export class GetOrders{
         } 
       }
 
+      async completeOrderByUser(user_id: string): Promise<Order[]> {
+          try {
+            const conn = await Client.connect()
+            const sql = `SELECT * FROM orders WHERE user_id = ${user_id} and status  = 'complete';`
+      
+            const result = await conn.query(sql)
+            conn.release()
+      
+            return result.rows
+          } catch (err) {
+            throw new Error(`unable get users with orders: ${err}`)
+          } 
+        }
+
       async create(product: Order): Promise<Order> {
         try{
     

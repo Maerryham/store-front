@@ -10,8 +10,13 @@ const index = async (_req: Request, res: Response) => {
   res.json(orders)
 }
 
-const orderByUser = async (req: Request, res: Response) => {
+const activeOrderByUser = async (req: Request, res: Response) => {
     const order = await store.activeOrderByUser(req.params.id)
+    res.json(order)
+}
+
+const completeOrderByUser = async (req: Request, res: Response) => {
+    const order = await store.completeOrderByUser(req.params.id)
     res.json(order)
 }
 
@@ -35,7 +40,8 @@ const create = async (_req: Request, res: Response) => {
 
 
 orderRoutes.get('/orders', index)
-orderRoutes.get('/orders/:id', orderByUser)
+orderRoutes.get('/orders/:id', verifyAuthToken, activeOrderByUser)
+orderRoutes.get('/orders/:id', verifyAuthToken, completeOrderByUser)
 orderRoutes.post('/orders', verifyAuthToken, create)
 
 export default orderRoutes;
