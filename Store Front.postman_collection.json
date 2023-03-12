@@ -68,24 +68,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Delete Products",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/products/3",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"products",
-								"3"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -152,24 +134,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Delete Users",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/users/3",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"users",
-								"3"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -183,7 +147,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"quantity\": \"mariam\",\n    \"status\": \"active\",\n    \"users_id\": \"1\",\n    \"product_id\": \"1\"\n}",
+							"raw": "{\n    \"status\": \"active\",\n    \"user_id\": \"1\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -257,6 +221,106 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Order Product",
+			"item": [
+				{
+					"name": "Add Product to User Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantity\": 2,\n    \"user_id\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/orders/1/products/1",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"orders",
+								"1",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Completed Orders by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/users/1/orders?status=complete",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "complete",
+									"description": "active, complete"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Current Order by user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/users/1/orders?status=active",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active",
+									"description": "active, complete"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -264,7 +328,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZpcnN0TmFtZSI6ImFkZXNld2EiLCJsYXN0TmFtZSI6Imxhd2FsIiwicGFzc3dvcmQiOiJwYXNzd29yZCJ9LCJpYXQiOjE2Nzg2Mzk4NTJ9.-Ga44rHZC7D3nbWu0_WCHkl5omtLRScPOccuPWYl4Ps",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZpcnN0TmFtZSI6ImFkZXNld2EiLCJsYXN0TmFtZSI6Imxhd2FsIiwicGFzc3dvcmQiOiJwYXNzd29yZCJ9LCJpYXQiOjE2Nzg2NTk2NTN9.hDXL_JMmzJ3dVlfjrpywt8Bk_My-u6Uq_Z1TcPNzkGE",
 				"type": "string"
 			}
 		]

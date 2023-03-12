@@ -39,7 +39,7 @@ const addProductToUserOrder = async (_req: Request, res: Response) => {
   }
 
 
-  orderProductRoutes.post('/orders/:order_id/orders/:product_id', addProductToUserOrder)
+  orderProductRoutes.post('/orders/:order_id/products/:product_id', addProductToUserOrder)
   orderProductRoutes.get('/users/:user_id/orders', productsInUserOrder)
 
 export default orderProductRoutes;
