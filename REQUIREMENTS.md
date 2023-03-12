@@ -49,3 +49,45 @@ BYCRYPT_PASSWORD=password
 SALT_ROUNDS=10
 ENV=dev
 TOKEN_SECRET=mytokenSecret
+
+#### Routes
+Products
+GET  /api/products          Get All Products
+POST /api/products          Create Products
+GET /api/products/:id       Get product by id
+
+
+Users
+GET  /api/users             Get All Users
+POST /api/users             Create User
+GET /api/users/:id          Get user by id
+
+
+Orders
+GET  /api/orders             Get All Orders
+POST /api/orders             Create Order
+GET /api/orders/:id          Get order by id
+
+
+OrderProduct
+POST  /orders/1/products/1   Add Product to user order
+GET /api/users/1/orders?status=complete       Complete Order by User
+GET /api/users/1/orders?status=active         Active Order by User
+
+
+#### Database schema
+
+Orders
+
+id  - integer
+user_id - string
+status - enum
+
+
+OrderProduct
+
+id - integer
+quantity - integer
+order_id - integer
+user_id  - integer
+product_id - integer
