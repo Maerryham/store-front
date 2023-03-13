@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { GetProducts, Product } from '../models/product';
-import { verifyAuthToken } from '../middlewares/verifyAuthToken'
+import { verifyAuthToken } from '../middlewares/verify_auth_token'
 import dotenv from 'dotenv'
 const productRoutes = express.Router();
 dotenv.config()

@@ -1,14 +1,21 @@
 import Client from "../database";
 
 
+
+export enum Status {
+  active = 'active',
+  complete = 'complete',
+}
+
 export type OrderProduct = {
-    order_id: number;
-    product_id: number;
+    order_id: number | string;
+    product_id: number | string;
     quantity: number;
-    user_id: number;
+    user_id: number | string;
     id?: number;
-    name?: number;
-    price?: number;
+    name?: string;
+    price?: number | string;
+    status?: Status;
 }
 export type OrderProductMini = {
     id?: number;
@@ -16,12 +23,6 @@ export type OrderProductMini = {
     product_id: number;
     quantity: number;
 }
-
-export enum Status {
-    active = 'active',
-    complete = 'complete',
-  }
-
 
 export class GetOrderProduct{
 

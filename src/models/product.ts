@@ -2,7 +2,7 @@ import Client from "../database";
 
 
 export type Product = {
-    id?: string;
+    id?: string | number;
     name: string;
     price: number;
 }
@@ -52,21 +52,6 @@ export class GetProducts{
     }
     catch(err){
         throw new Error(`Unable to create product ${err}`);
-    }
-   }
-
-   async delete(id: string): Promise<Product[]> {
-    try{
-
-        const conn = await Client.connect();
-        const sql = `DELETE FROM products WHERE id = ${id}`;
-        const result = await conn.query(sql);
-        conn.release();
-
-        return result.rows;
-    }
-    catch(err){
-        throw new Error(`Unable to delete product ${err}`);
     }
    }
 }

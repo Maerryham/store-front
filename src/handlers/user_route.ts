@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 import { GetUsers, User } from '../models/user';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
-import { verifyAuthToken } from '../middlewares/verifyAuthToken'
+import { verifyAuthToken } from '../middlewares/verify_auth_token'
 const userRoutes = express.Router();
 dotenv.config()
 

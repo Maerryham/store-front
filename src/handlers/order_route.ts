@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { GetOrders, Order, Status } from '../models/order';
-import { verifyAuthToken } from '../middlewares/verifyAuthToken'
+import { verifyAuthToken } from '../middlewares/verify_auth_token'
 const orderRoutes = express.Router();
 
 const store = new GetOrders();
