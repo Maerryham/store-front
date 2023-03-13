@@ -1,16 +1,16 @@
 {
     "dev": {
       "driver": "pg",
-      "host": "rogue.db.elephantsql.com",
-      "database": "yirevvgc",
-      "user": "yirevvgc",
-      "password": "buTTx61-EbZLiQf_yMSG8NbJoWK4F-80"
+      "host": { "ENV":  "POSTGRES_HOST"},
+      "database": { "ENV": "POSTGRES_DB" },
+      "user": { "ENV": "POSTGRES_USER" },
+      "password": { "ENV": "POSTGRES_PASSWORD" }
     },
     "test": {
       "driver": "pg",
-      "host": "rogue.db.elephantsql.com",
-      "database": "peterrcz",
-      "user": "peterrcz",
-      "password": "DybpLaGdBdZ7llut4xsNfSSbDYrEcHuw"
+      "host": { "ENV":  "POSTGRES_HOST"},
+      "database": { "ENV": "POSTGRES_TEST_DB" },
+      "user": { "ENV": "POSTGRES_TEST_USER" },
+      "password": { "ENV": "POSTGRES_TEST_PASSWORD" }
     }
   }
