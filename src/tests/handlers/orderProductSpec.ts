@@ -5,10 +5,10 @@ import userRoutes from "../../handlers/user_route";
 const request = supertest(userRoutes);
 
 describe("Test Get OrderProduct endpoint with responses", () => {
-    it("It should get the Get All Users endpoint", async (
+    it("It should get addProductToUserOrder endpoint", async (
     ) => {
         request
-           .post("/orders/1/orders/1")
+           .post("/orders/1/products/1")
            .then(response => {
             expect(response.status).toBe(200);
             })
@@ -19,7 +19,7 @@ describe("Test Get OrderProduct endpoint with responses", () => {
 
     
 
-    it("It should get the Get All Users Orders endpoint", async (
+    it("It should get the productsInUserOrder endpoint", async (
         ) => {
             request
                .get("/users/1/orders")

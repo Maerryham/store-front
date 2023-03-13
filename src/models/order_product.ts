@@ -2,20 +2,19 @@ import Client from "../database";
 
 
 export type OrderProduct = {
-    order_id: string;
-    product_id: string;
-    quantity: string;
-    user_id: string;
-    id?: string;
-    name?: string;
-    price?: string;
+    order_id: number;
+    product_id: number;
+    quantity: number;
+    user_id: number;
+    id?: number;
+    name?: number;
+    price?: number;
 }
 export type OrderProductMini = {
-    order_id: string;
-    product_id: string;
-    quantity: string;
-    user_id: string;
-    id?: string;
+    id?: number;
+    order_id: number;
+    product_id: number;
+    quantity: number;
 }
 
 export enum Status {
@@ -26,18 +25,18 @@ export enum Status {
 
 export class GetOrderProduct{
 
-    async productsInUserOrder(user_id: string, status?: Status | null): Promise<OrderProduct[]> {
+    async productsInUserOrder(user_id: number, status?: Status | null): Promise<OrderProduct[]> {
         const additionalQuery = status ? `AND o.status = '${status}'` : '';
         try {
           const conn = await Client.connect()
           const sql = `SELECT 
-          p.name, p.price, op.order_id, op.quantity, op.user_id, o.status
+          p.name, p.price, op.order_id, op.quantity, o.user_id, o.status
           FROM products p 
           INNER JOIN order_product op 
           ON p.id=op.product_id 
           JOIN orders o
           ON op.order_id=o.id 
-          WHERE op.user_id = ${user_id} 
+          WHERE o.user_id = ${user_id} 
           ${additionalQuery};`
     
           const result = await conn.query(sql)
@@ -53,13 +52,15 @@ export class GetOrderProduct{
 
         try {
           const conn = await Client.connect()
-          const sql = `INSERT INTO order_product (order_id, product_id, quantity, user_id) VALUES ($1, $2, $3, $4) RETURNING *;`
+          const sql = `INSERT INTO order_product (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *;`
     
           const result = await conn.query(sql, [...Object.values(product)])
           conn.release()
     
+          console.log('product', product)
           return result.rows[0]
         } catch (err) {
+          console.log('product', product)
           throw new Error(`unable to add product to order: ${err}`)
         } 
       }

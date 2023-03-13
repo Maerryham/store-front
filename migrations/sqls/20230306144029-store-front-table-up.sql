@@ -23,6 +23,5 @@ CREATE TABLE IF NOT EXISTS order_product (
     id SERIAL PRIMARY  KEY,
     quantity integer,
     order_id BIGINT REFERENCES orders (id),
-    user_id BIGINT REFERENCES users (id),
     product_id BIGINT REFERENCES products (id)
 );

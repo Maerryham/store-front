@@ -1,17 +1,16 @@
 import express, { Request, Response } from 'express'
-import { GetOrderProduct, OrderProduct, Status } from '../services/order_product';
-import { verifyAuthToken } from '../middlewares/verifyAuthToken'
+import { GetOrderProduct, OrderProduct, OrderProductMini, Status } from '../models/order_product';
+
 const orderProductRoutes = express.Router();
 
 const store = new GetOrderProduct();
 
 
 const addProductToUserOrder = async (_req: Request, res: Response) => {
-    const orderProduct: OrderProduct = {
-      product_id: _req.params.product_id,
-      quantity: _req.body.quantity,
-      user_id: _req.body.user_id,
-      order_id: _req.params.order_id,
+    const orderProduct: OrderProductMini = {
+      order_id: +_req.params.order_id,
+      product_id: +_req.params.product_id,
+      quantity: +_req.body.quantity,
     }
   
     try {
@@ -24,7 +23,7 @@ const addProductToUserOrder = async (_req: Request, res: Response) => {
   }
 
   const productsInUserOrder = async (_req: Request, res: Response) => {
-    const userId = _req.params.user_id
+    const userId = +_req.params.user_id
     const queryStatus = _req.query.status;
 
     const status = queryStatus ? (queryStatus as Status) : null
