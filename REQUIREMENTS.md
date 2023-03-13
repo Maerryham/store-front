@@ -89,5 +89,4 @@ OrderProduct
 id - integer
 quantity - integer
 order_id - integer
-user_id  - integer
 product_id - integer

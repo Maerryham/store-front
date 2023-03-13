@@ -29,11 +29,21 @@
 				{
 					"name": "Create Products",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZpcnN0TmFtZSI6Im1hcmlhbSIsImxhc3ROYW1lIjoibGF3YWwiLCJwYXNzd29yZCI6InBhc3N3b3JkIn0sImlhdCI6MTY3ODYxNzk5MX0.h3-3qwG9JbvpMIw27Kh17_M83SysZDce3WURmMOFYP4",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Good Product\",\n    \"price\": 200\n}",
+							"raw": "{\n    \"name\": \"Good Product 2\",\n    \"price\": 200\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,15 +65,19 @@
 				{
 					"name": "Get Products By Id",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/products",
+							"raw": "{{base-url}}/products/1",
 							"host": [
 								"{{base-url}}"
 							],
 							"path": [
-								"products"
+								"products",
+								"1"
 							]
 						}
 					},
@@ -98,7 +112,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"mariam\",\n    \"lastName\": \"lawal\",\n    \"username\": \"maerryham\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"firstName\": \"adesewa\",\n    \"lastName\": \"lawal\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -123,13 +137,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/users/3",
+							"raw": "{{base-url}}/users/1",
 							"host": [
 								"{{base-url}}"
 							],
 							"path": [
 								"users",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -176,7 +190,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"quantity\": \"mariam\",\n    \"status\": \"active\",\n    \"users_id\": \"1\",\n    \"product_id\": \"1\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -232,7 +246,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"quantity\": 2,\n    \"user_id\": \"1\"\n}",
+							"raw": "{\n    \"quantity\": 300,\n    \"user_id\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -240,7 +254,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/orders/1/products/1",
+							"raw": "{{base-url}}/orders/1/products/2",
 							"host": [
 								"{{base-url}}"
 							],
@@ -248,7 +262,7 @@
 								"orders",
 								"1",
 								"products",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -328,7 +342,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZpcnN0TmFtZSI6ImFkZXNld2EiLCJsYXN0TmFtZSI6Imxhd2FsIiwicGFzc3dvcmQiOiJwYXNzd29yZCJ9LCJpYXQiOjE2Nzg2NTk2NTN9.hDXL_JMmzJ3dVlfjrpywt8Bk_My-u6Uq_Z1TcPNzkGE",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImZpcnN0TmFtZSI6ImFkZXNld2EiLCJsYXN0TmFtZSI6Imxhd2FsIiwicGFzc3dvcmQiOiJwYXNzd29yZCJ9LCJpYXQiOjE2Nzg3MDkxOTl9.B_65BmO1kbMgCXapqP-z8r5mNorewMy3_1jS1xfRrCg",
 				"type": "string"
 			}
 		]
