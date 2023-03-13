@@ -9,9 +9,9 @@ const {
 } = process.env 
 
 export type User = {
-    id?: string;
-    firstName: string;
-    lastName: string;
+    id?: string | number;
+    firstname: string;
+    lastname: string;
     password: string;
 }
 
@@ -49,7 +49,7 @@ export class GetUsers{
     }
    }
 
-   async show(id: string): Promise<User> {
+   async show(id: number): Promise<User> {
     try{
 
         const conn = await Client.connect();
@@ -69,31 +69,17 @@ export class GetUsers{
     try{
 
         const conn = await Client.connect();
-        const sql = `INSERT INTO users (firstName, lastName, password) VALUES ($1, $2, $3) RETURNING *`;
+        const sql = `INSERT INTO users (firstname, lastname, password) VALUES ($1, $2, $3) RETURNING *`;
         const hash = bcrypt.hashSync(user.password + pepper, parseInt(saltRounds || '') );
         
-        const result = await conn.query(sql, [user.firstName, user.lastName, hash]);
+        const result = await conn.query(sql, [user.firstname, user.lastname, hash]);
         conn.release();
 
+        console.log(result.rows[0]);
         return result.rows[0];
     }
     catch(err){
         throw new Error(`Unable to create user ${err}`);
-    }
-   }
-
-   async delete(id: string): Promise<User[]> {
-    try{
-
-        const conn = await Client.connect();
-        const sql = `DELETE FROM users WHERE id = ${id}`;
-        const result = await conn.query(sql);
-        conn.release();
-
-        return result.rows;
-    }
-    catch(err){
-        throw new Error(`Unable to delete user ${err}`);
     }
    }
 }

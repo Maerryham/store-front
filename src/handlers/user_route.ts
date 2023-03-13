@@ -14,7 +14,7 @@ const index = async (_req: Request, res: Response) => {
 }
   
 const show = async (req: Request, res: Response) => {
-  const user = await store.show(req.params.id)
+  const user = await store.show(+req.params.id)
   res.json(user)
 }
 
@@ -22,8 +22,8 @@ const show = async (req: Request, res: Response) => {
   
 const create = async (_req: Request, res: Response) => {
   const user: User = {
-    firstName: _req.body.firstName,
-    lastName: _req.body.lastName,
+    firstname: _req.body.firstname,
+    lastname: _req.body.lastname,
     password: _req.body.password,
   }
 
@@ -35,11 +35,6 @@ const create = async (_req: Request, res: Response) => {
       res.status(400)
       res.json({ message: `${(err as Error).message} User ${JSON.stringify(user)}`})
   }
-}
-
-const destroy = async (req: Request, res: Response) => {
-  const deleted = await store.delete(req.body.id)
-  res.json(deleted)
 }
   
   userRoutes.get('/users', verifyAuthToken, index)

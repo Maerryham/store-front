@@ -16,13 +16,13 @@ describe("GetOrderProduct Model", () => {
     const result = await store.addProductToUserOrder({
       order_id: 1,
       product_id: 1,
-      quantity: 5,
+      quantity: 300,
     });
     expect(result).toEqual({
       id: 1,
       quantity : 300,
       order_id: 1,
-      product_id: 2
+      product_id: 1
     });
   });
 

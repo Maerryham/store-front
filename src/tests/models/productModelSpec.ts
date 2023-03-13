@@ -21,9 +21,9 @@ describe("GetProducts Model", () => {
       price: 250
     });
     expect(result).toEqual({
-      id: "1",
+      id: 1,
       name: 'Good Product',
-      price: 250
+      price: '250'
     });
   });
 
@@ -32,7 +32,7 @@ describe("GetProducts Model", () => {
     expect(result).toEqual([{
       id: 1,
       name: 'Good Product',
-      price: 250
+      price: '250'
     }]);
   });
 
@@ -41,7 +41,7 @@ describe("GetProducts Model", () => {
     expect(result).toEqual({
       id: 1,
       name: 'Good Product',
-      price: 250
+      price: '250'
     });
   });
 });

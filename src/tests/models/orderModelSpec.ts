@@ -21,7 +21,7 @@ describe("GetOrders Model", () => {
       status: 'active',
     });
     expect(result).toEqual({
-      id: '1',
+      id: 1,
       user_id: '1',
       status: 'active',
     });
@@ -30,7 +30,7 @@ describe("GetOrders Model", () => {
   it('index method should return a list of orders', async () => {
     const result = await store.index();
     expect(result).toEqual([{
-      id: '1',
+      id: 1,
       user_id: '1',
       status: 'active',
     }]);
@@ -39,7 +39,7 @@ describe("GetOrders Model", () => {
   it('show method should return the correct order', async () => {
     const result = await store.orderByUser("1");
     expect(result).toEqual([{
-      id: "1",
+      id: 1,
       user_id: '1',
       status: 'active',
     }]);
