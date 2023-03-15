@@ -15,6 +15,7 @@ const addProductToUserOrder = async (_req: Request, res: Response) => {
   
     try {
         const newOrder = await store.addProductToUserOrder(orderProduct)
+        res.status(201)
         res.json(newOrder)
     } catch(err) {
         res.status(400)

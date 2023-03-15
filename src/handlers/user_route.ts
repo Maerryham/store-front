@@ -30,6 +30,7 @@ const create = async (_req: Request, res: Response) => {
   try {  
       const newUser = await store.create(user)
       const token = jwt.sign({user: user}, process.env.TOKEN_SECRET || '')
+      res.status(201)
       res.json({token})
   } catch(err ) {
       res.status(400)

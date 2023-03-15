@@ -58,10 +58,8 @@ export class GetOrderProduct{
           const result = await conn.query(sql, [...Object.values(product)])
           conn.release()
     
-          console.log('product', product)
           return result.rows[0]
         } catch (err) {
-          console.log('product', product)
           throw new Error(`unable to add product to order: ${err}`)
         } 
       }

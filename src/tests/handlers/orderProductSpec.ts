@@ -10,7 +10,7 @@ describe("Test Get OrderProduct endpoint with responses", () => {
         request
            .post("/orders/1/products/1")
            .then(response => {
-            expect(response.status).toBe(200);
+            expect(response.status).toBe(201);
             })
             .catch(error => {
                 console.log(error);
