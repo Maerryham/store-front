@@ -1,17 +1,37 @@
 # Storefront Backend Project
 
-## Getting Started
-
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+## Overview
+Storefont is a backend application that allows an ecommerce store to send request via RESTFUL API. The full requirements about the routes are available in the REQUIREMENTS.md file 
 
 ## Required Technologies
-Your application must make use of the following libraries:
+The application make use of the following libraries:
 - Postgres for the database
 - Node/Express for the application logic
 - dotenv from npm for managing environment variables
 - db-migrate from npm for migrations
 - jsonwebtoken from npm for working with JWTs
 - jasmine from npm for testing
+
+## Installation
+npm install
+npm run build
+npm run start
+
+
+## Environment Variables
+You are required to create a duplicate of .env.sample file,  rename the new file  as .env and then update the variables to the values below
+The environment variable sample are stored in the .env.sample.
+
+- The database.json file would parse the environment variable to the right database
+
+In psql prompt, run the following: 
+CREATE USER store_front_user WITH PASSWORD 'password'; 
+CREATE DATABASE store_front;
+CREATE DATABASE store_front_test; 
+\c store_front 
+GRANT ALL PRIVILEGES ON DATABASE store_front TO store_front_user;
+\c store_front_test GRANT ALL PRIVILEGES ON DATABASE store_front_test TO store_front_user;
+
 
 ## Steps to Completion
 

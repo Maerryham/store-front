@@ -85,29 +85,5 @@ SALT_ROUNDS=10
 ENV=dev
 TOKEN_SECRET=mytokenSecret
 
-#### Routes
-Products
-GET  /products          Get All Products
-POST /products          Create Products
-GET /products/:id       Get product by id
-
-
-### Users
-GET  /users             Get All Users
-POST /users             Create User
-GET /users/:id          Get user by id
-
-
-Orders
-GET  /orders             Get All Orders
-POST /orders             Create Order
-GET /orders/:id          Get order by id
-
-
-OrderProduct
-
-
-
-
 
 
