@@ -5,20 +5,27 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index d
-- Show d
-- Create [token required] d
+- Index          GET  http://localhost:3000/products          Get All Products
+- Show          GET http://localhost:3000/products/:id       Get product by id
+- Create [token required] POST http://localhost:3000/products          Create Products
 - [OPTIONAL] Top 5 most popular products 
 - [OPTIONAL] Products by category (args: product category)
 
 #### Users
-- Index [token required] d
-- Show [token required] d
-- Create N[token required] d
+- Index [token required]  GET  http://localhost:3000/users             Get All Users
+- Show [token required]     GET  http://localhost:3000/users/signin      Authenticate User
+- Create N[token required]  POST http://localhost:3000/users             Create New User
 
 #### Orders
-- Current Order by user (args: user id)[token required] d
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required]  
+                               GET  http://localhost:3000/users/1/orders?status=active
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] 
+                               GET  http://localhost:3000/users/1/orders?status=complete
+
+
+#### OrderProducts
+- POST  http://localhost:3000/orders/1/products/1   Add Product to user order
+
 
 ## Data Shapes
 #### Product
@@ -27,18 +34,42 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 - [OPTIONAL] category
 
+
 #### User
 - id
 - firstName
 - lastName
 - password
 
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY  KEY,
+    firstname VARCHAR(255) UNIQUE NOT NULL DEFAULT '',
+    lastname VARCHAR(255) NOT NULL DEFAULT '',
+    username VARCHAR(255) NOT NULL DEFAULT '',
+    password VARCHAR(255) NOT NULL DEFAULT ''
+);
 #### Orders
 - id
 - id of each product in the order
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+CREATE TYPE enum_type AS ENUM('active','complete');
+
+CREATE TABLE IF NOT EXISTS orders (
+    id SERIAL PRIMARY  KEY,
+    user_id BIGINT REFERENCES users (id),
+    status enum_type
+);
+#### order_product
+CREATE TABLE IF NOT EXISTS order_product (
+    id SERIAL PRIMARY  KEY,
+    quantity integer,
+    order_id BIGINT REFERENCES orders (id),
+    product_id BIGINT REFERENCES products (id)
+);
+
 
 #### How to connect the database
 POSTGRES_HOST=rogue.db.elephantsql.com
@@ -61,7 +92,7 @@ POST /products          Create Products
 GET /products/:id       Get product by id
 
 
-Users
+### Users
 GET  /users             Get All Users
 POST /users             Create User
 GET /users/:id          Get user by id
@@ -74,23 +105,9 @@ GET /orders/:id          Get order by id
 
 
 OrderProduct
-POST  /orders/1/products/1   Add Product to user order
-GET /users/1/orders?status=complete       Complete Order by User
-GET /users/1/orders?status=active         Active Order by User
 
 
-#### Database schema
-
-Orders
-
-id  - integer
-user_id - string
-status - enum
 
 
-OrderProduct
 
-id - integer
-quantity - integer
-order_id - integer
-product_id - integer
+
