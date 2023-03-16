@@ -20,12 +20,11 @@ app.listen(3000, function () {
 app.use(morgan('tiny'));
 
 //Load Routers
-app.use('/api', productRoutes);
-app.use('/api', userRoutes);
-app.use('/api', orderRoutes);
-app.use('/api', orderProductRoutes);
-
-
-app.get('/', (req: express.Request, res: express.Response) => {
-    res.send('Hello World!');
-});
+// app.use('/api', productRoutes);
+// app.use('/api', userRoutes);
+productRoutes(app);
+userRoutes(app);
+orderRoutes(app)
+orderProductRoutes(app)
+// app.use('/api', orderRoutes);
+// app.use('/api', orderProductRoutes);

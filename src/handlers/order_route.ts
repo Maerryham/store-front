@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
 import { GetOrders, Order, Status } from '../models/order';
 import { verifyAuthToken } from '../middlewares/verify_auth_token'
-const orderRoutes = express.Router();
 
 const store = new GetOrders();
 
@@ -40,9 +39,9 @@ const create = async (_req: Request, res: Response) => {
   }
 }
 
-
-orderRoutes.get('/orders', index)
-orderRoutes.get('/orders/users/:id', verifyAuthToken, OrderByUser)
-orderRoutes.post('/orders', verifyAuthToken, create)
-
+const orderRoutes = (app: express.Application) => {
+  app.get('/orders', index)
+  app.get('/orders/users/:id', verifyAuthToken, OrderByUser)
+  app.post('/orders', verifyAuthToken, create)
+}
 export default orderRoutes;

@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express'
 import { GetProducts, Product } from '../models/product';
 import { verifyAuthToken } from '../middlewares/verify_auth_token'
 import dotenv from 'dotenv'
-const productRoutes = express.Router();
 dotenv.config()
 
 const store = new GetProducts();
@@ -33,9 +32,10 @@ const create = async (_req: Request, res: Response) => {
   }
 }
 
-  productRoutes.get('/products', index)
-  productRoutes.get('/products/:id', show)
-  productRoutes.post('/products', verifyAuthToken, create)
-
+const productRoutes = (app: express.Application) => {
+  app.get('/products', index)
+  app.get('/products/:id', show)
+  app.post('/products', verifyAuthToken, create)
+};
   
 export default productRoutes;

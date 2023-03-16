@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
 import { GetOrderProduct, OrderProduct, OrderProductMini, Status } from '../models/order_product';
 
-const orderProductRoutes = express.Router();
 
 const store = new GetOrderProduct();
 
@@ -38,8 +37,8 @@ const addProductToUserOrder = async (_req: Request, res: Response) => {
     }
   }
 
-
-  orderProductRoutes.post('/orders/:order_id/products/:product_id', addProductToUserOrder)
-  orderProductRoutes.get('/users/:user_id/orders', productsInUserOrder)
-
+  const orderProductRoutes = (app: express.Application) => {
+    app.post('/orders/:order_id/products/:product_id', addProductToUserOrder)
+    app.get('/users/:user_id/orders', productsInUserOrder)
+  }
 export default orderProductRoutes;

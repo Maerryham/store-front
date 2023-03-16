@@ -3,7 +3,7 @@ import { GetUsers, User } from '../models/user';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
 import { verifyAuthToken } from '../middlewares/verify_auth_token'
-const userRoutes = express.Router();
+// const userRoutes = express.Router();
 dotenv.config()
 
 const store = new GetUsers();
@@ -19,28 +19,41 @@ const show = async (req: Request, res: Response) => {
 }
 
 
-  
+const authenticate = async (req: Request, res: Response) => {
+  try { 
+    const user = await store.authenticate(req.params.username, req.params.password)
+    const token = jwt.sign({user: user}, process.env.TOKEN_SECRET || '')
+
+    res.json({token})
+  } catch(err ) {
+    res.status(400)
+    res.json({ message: `Unable to sign in ${(err as Error).message}`})
+  }
+}
+
+      
 const create = async (_req: Request, res: Response) => {
   const user: User = {
     firstname: _req.body.firstname,
     lastname: _req.body.lastname,
+    username: _req.body.username,
     password: _req.body.password,
   }
 
   try {  
       const newUser = await store.create(user)
-      const token = jwt.sign({user: user}, process.env.TOKEN_SECRET || '')
       res.status(201)
-      res.json({token})
+      res.json({user: newUser})
   } catch(err ) {
       res.status(400)
       res.json({ message: `${(err as Error).message} User ${JSON.stringify(user)}`})
   }
 }
-  
-  userRoutes.get('/users', verifyAuthToken, index)
-  userRoutes.get('/users/:id', verifyAuthToken, show)
-  userRoutes.post('/users', create)
-
+const userRoutes = (app: express.Application) => {
+  app.get('/users', verifyAuthToken, index)
+  app.post('/users/signin', authenticate)
+  app.get('/users/:id', verifyAuthToken, show)
+  app.post('/users', create)
+}
   
 export default userRoutes;
