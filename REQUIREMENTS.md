@@ -71,19 +71,4 @@ CREATE TABLE IF NOT EXISTS order_product (
 );
 
 
-#### How to connect the database
-POSTGRES_HOST=rogue.db.elephantsql.com
-POSTGRES_DB=yirevvgc
-POSTGRES_USER=yirevvgc
-POSTGRES_PASSWORD=buTTx61-EbZLiQf_yMSG8NbJoWK4F-80
-POSTGRES_TEST_DB=peterrcz
-POSTGRES_TEST_USER=peterrcz
-POSTGRES_TEST_PASSWORD=DybpLaGdBdZ7llut4xsNfSSbDYrEcHuw
-
-BYCRYPT_PASSWORD=password
-SALT_ROUNDS=10
-ENV=dev
-TOKEN_SECRET=mytokenSecret
-
-
 

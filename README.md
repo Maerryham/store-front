@@ -24,6 +24,8 @@ The environment variable sample are stored in the .env.sample.
 
 - The database.json file would parse the environment variable to the right database
 
+
+#### How to connect the database
 In psql prompt, run the following: 
 CREATE USER store_front_user WITH PASSWORD 'password'; 
 CREATE DATABASE store_front;
@@ -31,6 +33,21 @@ CREATE DATABASE store_front_test;
 \c store_front 
 GRANT ALL PRIVILEGES ON DATABASE store_front TO store_front_user;
 \c store_front_test GRANT ALL PRIVILEGES ON DATABASE store_front_test TO store_front_user;
+
+#### Environment Variables
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DB=store_front
+POSTGRES_USER=store_front_user
+POSTGRES_PASSWORD=password
+POSTGRES_TEST_DB=store_front_test
+POSTGRES_TEST_USER=store_front_user
+POSTGRES_TEST_PASSWORD=password
+
+BYCRYPT_PASSWORD=password
+SALT_ROUNDS=10
+ENV=dev
+TOKEN_SECRET=mytokenSecret
+
 
 
 ## Steps to Completion
