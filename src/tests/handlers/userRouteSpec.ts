@@ -1,8 +1,8 @@
 import supertest from "supertest";
-import userRoutes from "../../handlers/user_route";
+import app from "../../server";
 
 
-const request = supertest(userRoutes);
+const request = supertest(app);
 
 describe("Test Get All Users endpoint with responses", () => {
     it("It should get the Get All Users endpoint", async (

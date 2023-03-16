@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import productRoutes from './handlers/product_route';
@@ -10,21 +11,22 @@ import orderProductRoutes from './handlers/order_product_route';
 const app: express.Application = express()
 const address: string = "0.0.0.0:3000"
 
-app.use(bodyParser.json())
+const corsOptions = { credential: true, origin: '*' };
 
-app.listen(3000, function () {
-    console.log(`Server is running on ${address}`)
-})
+app.use(bodyParser.json());
+app.use(cors(corsOptions));
+
 
 //Log request
 app.use(morgan('tiny'));
 
-//Load Routers
-// app.use('/api', productRoutes);
-// app.use('/api', userRoutes);
 productRoutes(app);
 userRoutes(app);
 orderRoutes(app)
 orderProductRoutes(app)
-// app.use('/api', orderRoutes);
-// app.use('/api', orderProductRoutes);
+
+
+app.listen(3000, function () {
+    console.log(`Server is running on ${address}`)
+})
+export default app;

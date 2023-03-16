@@ -1,8 +1,9 @@
 import supertest from "supertest";
 import productRoutes from "../../handlers/product_route";
+import app from "../../server";
 
 
-const request = supertest(productRoutes);
+const request = supertest(app);
 
 describe("Test Get Products endpoint with responses", () => {
     it("It should get the Get All Products endpoint", async (
