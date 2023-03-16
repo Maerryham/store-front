@@ -31,6 +31,9 @@ const create = async (_req: Request, res: Response) => {
 
   try {
       const newOrder = await store.create(order)
+      if (!newOrder) {
+        return res.status(500).send({ message: `Unable to create Order`});
+      }
       res.status(201)
       res.json(newOrder)
   } catch(err) {

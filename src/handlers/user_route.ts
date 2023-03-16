@@ -9,13 +9,26 @@ dotenv.config()
 const store = new GetUsers();
 
 const index = async (_req: Request, res: Response) => {
-  const users = await store.index()
-  res.json(users)
+  try {
+    const users = await store.index()
+    res.json(users)
+  } catch(err) {
+    res.status(500)
+    res.json({ message: `${(err as Error).message}`})
+  }
 }
   
 const show = async (req: Request, res: Response) => {
-  const user = await store.show(+req.params.id)
-  res.json(user)
+  try {
+    const user = await store.show(+req.params.id)
+    if (!user) {
+      return res.status(404).send({ message: `No User with Id found`});
+    }
+    res.json(user)
+  } catch(err) {
+    res.status(500)
+    res.json({ message: `${(err as Error).message}`})
+  }
 }
 
 
@@ -45,7 +58,7 @@ const create = async (_req: Request, res: Response) => {
       res.status(201)
       res.json({user: newUser})
   } catch(err ) {
-      res.status(400)
+      res.status(500)
       res.json({ message: `${(err as Error).message} User ${JSON.stringify(user)}`})
   }
 }
